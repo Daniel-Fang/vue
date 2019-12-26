@@ -330,7 +330,7 @@ export function callHook (vm: Component, hook: string) {
     }
   }
   if (vm._hasHookEvent) {
-    vm.$emit('hook:' + hook)
+    vm.$emit('hook:' + hook); // 父组件设置 @hook 监听子组件
   }
   popTarget()
 }

@@ -47,11 +47,11 @@ export function proxy (target: Object, sourceKey: string, key: string) {
 
 export function initState (vm: Component) {
   vm._watchers = []
-  const opts = vm.$options
+  const opts = vm.$options;
   if (opts.props) initProps(vm, opts.props)
   if (opts.methods) initMethods(vm, opts.methods)
   if (opts.data) {
-    initData(vm)
+    initData(vm);
   } else {
     observe(vm._data = {}, true /* asRootData */)
   }

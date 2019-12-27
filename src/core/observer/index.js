@@ -141,6 +141,7 @@ export function defineReactive (
 ) {
   const dep = new Dep()
 
+  // 不可配置时，返回
   const property = Object.getOwnPropertyDescriptor(obj, key)
   if (property && property.configurable === false) {
     return
@@ -149,7 +150,7 @@ export function defineReactive (
   // cater for pre-defined getter/setters
   const getter = property && property.get
   const setter = property && property.set
-  if ((!getter || setter) && arguments.length === 2) {
+  if ((!getter || setter) && arguments.length === 2) { // 当参数只有两个时，val = obj[key];
     val = obj[key]
   }
 
@@ -173,7 +174,7 @@ export function defineReactive (
     set: function reactiveSetter (newVal) {
       const value = getter ? getter.call(obj) : val
       /* eslint-disable no-self-compare */
-      if (newVal === value || (newVal !== newVal && value !== value)) {
+      if (newVal === value || (newVal !== newVal && value !== value)) { // NaN
         return
       }
       /* eslint-enable no-self-compare */

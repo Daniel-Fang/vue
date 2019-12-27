@@ -44,3 +44,4 @@ export function parsePath (path: string): any {
     return obj
   }
 }
+

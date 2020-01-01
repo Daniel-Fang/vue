@@ -5,8 +5,8 @@ import { noop } from 'shared/util'
 import { handleError } from './error'
 import { isIE, isIOS, isNative } from './env'
 
-const callbacks = []
-let pending = false
+const callbacks = [] // 存储事件回调
+let pending = false // 标记是否已经向任务队列添加了一个任务
 
 function flushCallbacks () {
   pending = false
@@ -37,9 +37,9 @@ let timerFunc
 // completely stops working after triggering a few times... so, if native
 // Promise is available, we will use it:
 /* istanbul ignore next, $flow-disable-line */
-if (typeof Promise !== 'undefined' && isNative(Promise)) {
+if (typeof Promise !== 'undefined' && isNative(Promise)) { // native Promise 存在
   const p = Promise.resolve()
-  timerFunc = () => {
+  timerFunc = () => { // 作用是将 flushCallBacks 添加到微任务队列中
     p.then(flushCallbacks)
     // In problematic UIWebViews, Promise.then doesn't completely break, but
     // it can get stuck in a weird state where callbacks are pushed into the
@@ -98,6 +98,8 @@ export function nextTick (cb?: Function, ctx?: Object) {
     timerFunc()
   }
   // $flow-disable-line
+  // 如果未提供回调，且存在 Promise，即返回一个 Promise
+  // 于是支持 this.$nextTick().then(function () {});
   if (!cb && typeof Promise !== 'undefined') {
     return new Promise(resolve => {
       _resolve = resolve

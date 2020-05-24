@@ -8,7 +8,7 @@ import { isIE, isIOS, isNative } from './env'
 const callbacks = [] // 存储事件回调
 let pending = false // 标记是否已经向任务队列添加了一个任务
 
-function flushCallbacks () {
+function flushCallbacks () { // 将 callbacks 回调队列 清空，遍历，执行每个回调
   pending = false
   const copies = callbacks.slice(0)
   callbacks.length = 0
@@ -67,16 +67,16 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) { // native Promise 存
     textNode.data = String(counter)
   }
 } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
-  // Fallback to setImmediate.
+  // Fallback to setImmediate. // Promise、MutationObserver 都没有，则回退到 setImmediate
   // Techinically it leverages the (macro) task queue,
   // but it is still a better choice than setTimeout.
   timerFunc = () => {
     setImmediate(flushCallbacks)
   }
 } else {
-  // Fallback to setTimeout.
+  // Fallback to setTimeout. // 以上均不满足，无奈使用 setTimeout
   timerFunc = () => {
-    setTimeout(flushCallbacks, 0)
+    setTimeout(flushCallbacks, 0) 
   }
 }
 

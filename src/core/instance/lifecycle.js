@@ -103,7 +103,7 @@ export function lifecycleMixin (Vue: Class<Component>) {
     vm._isBeingDestroyed = true
     // remove self from parent
     const parent = vm.$parent
-    if (parent && !parent._isBeingDestroyed && !vm.$options.abstract) {
+    if (parent && !parent._isBeingDestroyed && !vm.$options.abstract) { // 解除父子之间的联系
       remove(parent.$children, vm)
     }
     // teardown watchers

@@ -14,10 +14,29 @@ function Vue (options) {
   this._init(options)
 }
 
+// Vue.prototype._init = function () {};
 initMixin(Vue)
+
+// Vue.prototype.$data
+// Vue.prototype.$props
+// Vue.prototype.$set
+// Vue.prototype.$delete
+// Vue.prototype.$watch
 stateMixin(Vue)
+
+// Vue.prototype.$on
+// Vue.prototype.$once
+// Vue.prototype.$off
+// Vue.prototype.$emit
 eventsMixin(Vue)
+
+// Vue.prototype._update
+// Vue.prototype.$forceUpdate
+// Vue.prototype.$destroy
 lifecycleMixin(Vue)
+
+// Vue.prototype.$nextTick
+// Vue.prototype._render
 renderMixin(Vue)
 
 export default Vue
